@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Tic-Tac-Toe 3D.sln"
+    "dotnet.defaultSolution": "TicTacToe-Unity-3D.sln"
 }
