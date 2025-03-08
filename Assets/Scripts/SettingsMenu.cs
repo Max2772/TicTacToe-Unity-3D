@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Mono.Cecil;
-using Mono.Cecil.Cil;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -9,17 +8,33 @@ public class SettingsMenu : MonoBehaviour
 {
     public Resolution[] availableResolutions;
     public AudioMixer audioMixer;
-    //[SerializeField] private Dropdown dropdownResolution;
+    [SerializeField] private TMP_Dropdown dropdownResolution;
 
     void Start(){
-        //availableResolutions = Screen.resolutions;
-        //dropdownResolution.ClearOptions();
+        availableResolutions = Screen.resolutions;
+        dropdownResolution.ClearOptions();
 
-        //List<string> options = new List<string>();
+        List<string> options = new List<string>();
 
-        //for(int i = 0; i < availableResolutions.Length; ++i){
-            //string option = 
-        //}  
+        int currentResolutionIdx = 0;
+
+        for(int i = 0; i < availableResolutions.Length; ++i){
+            string option = availableResolutions[i].width + "x" + availableResolutions[i].height;
+            options.Add(option);
+
+            if(availableResolutions[i].width == Screen.currentResolution.width &&
+              availableResolutions[i].height == Screen.currentResolution.height){
+                currentResolutionIdx = i;
+            }
+        }
+        
+        dropdownResolution.AddOptions(options);
+        dropdownResolution.value = currentResolutionIdx;
+        dropdownResolution.RefreshShownValue();
+    }
+
+    public void SetResolution(int resolutionIdx){
+        Screen.SetResolution(availableResolutions[resolutionIdx].width, availableResolutions[resolutionIdx].height, Screen.fullScreen);
     }
 
     public void SetVolume(float volume){
